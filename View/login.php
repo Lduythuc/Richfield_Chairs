@@ -1,3 +1,40 @@
+<?php
+require_once 'utils.php';
+require_once 'connect.php';
+
+$errors = [];
+
+if(isset($_COOKIE['username'])){
+    header('Location: homepage.php');
+}else if(isset($_SESSION['username'])){
+    header('Location: homepage.php');
+}
+if(isset($_POST['login'])){
+    $username = $_POST['username'];
+    $password = sha1($_POST['password']);
+    // $rememberme = $_POST['rememberme'];
+    // dd($rememberme);
+    try{
+        $sql = "select USERNAME,PASSWORD from USERS";
+        $result = $conn->query($sql);
+        $row=mysqli_fetch_all($result,MYSQLI_ASSOC);
+        $check = false;
+        foreach ($row as $value){
+            if(($value['username'] == $username)and($value['password'] == $password)){
+                $check = true;
+                header('Location: homepage.php');
+            }
+        }
+        if ($check == false){
+            echo '<div class="alert alert-success" role="alert">
+                username or pasword wrong !
+            </div>';
+        } 
+    }catch(Exception $e){
+        echo 'Message: ' .$e->getMessage();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,13 +61,13 @@
                     <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
                     <div class="form-outline form-white mb-4">
-                        <input type="email" id="typeEmailX" class="form-control form-control-lg" />
                         <label class="form-label" for="typeEmailX">Email</label>
+                        <input type="email" id="typeEmailX" class="form-control form-control-lg" />
                     </div>
 
                     <div class="form-outline form-white mb-4">
-                        <input type="password" id="typePasswordX" class="form-control form-control-lg" />
                         <label class="form-label" for="typePasswordX">Password</label>
+                        <input type="password" id="typePasswordX" class="form-control form-control-lg" />
                     </div>
 
                     <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
@@ -46,7 +83,7 @@
                     </div>
 
                     <div>
-                    <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
+                    <p class="mb-0">Don't have an account? <a href="register.php" class="text-white-50 fw-bold">Sign Up</a>
                     </p>
                     </div>
                 </div>

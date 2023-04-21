@@ -36,7 +36,7 @@ if (isset($_POST['register'])) {
 
     if (count($errors) === 0) {
         try {
-            $sql = "INSERT INTO USERS (USERNAME, fullname, password, email, phone, address, role) VALUES ('$username', $fullname, '$password', $email, '$phone', $address, $role)";
+            $sql = "INSERT INTO USERS (USERNAME, PASSWORD, FULLNAME, EMAIL, PHONE, ADDRESS, ROLE) VALUES ('$username', $fullname, '$password', $email, '$phone', $address, $role)";
             $res = $conn->query($sql);
             // insert successfully
             if ($res) {
@@ -78,7 +78,7 @@ if (isset($_POST['register'])) {
                             <h3 class="text-center text-primary">Register</h3>
                         </div>
                         <div class="card-body">
-                            <form action="register.php" method="post">
+                            <form action="" method="post">
                                 <div class="form-group mb-2">
                                     <label for="username">Username</label>
                                     <input type="text" name="username" id="username" class="form-control"
@@ -116,8 +116,8 @@ if (isset($_POST['register'])) {
                                     <input type="radio" name="role" value="0"> no
                                 </div>
                                 <div class="form-group d-flex justify-content-between align-items-center">
-                                    <a href="index.php" class="text-uppercase fw-bold">Login</a>
-                                    <input type="submit" name="register" value="Register" class="btn btn-primary">
+                                    <a href="login.php" class="text-uppercase fw-bold">Login</a>
+                                    <input type="submit" name="register" value="register" class="btn btn-primary">
                                 </div>
                                 <?php
                                 if (count($errors) > 0) {
