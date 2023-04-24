@@ -31,12 +31,12 @@ if (isset($_POST['register'])) {
         $errors[] = 'Address is required';
     }
     if (empty($role)) {
-        $errors[] = 'Role is required';
+        $role='1';
     }
 
     if (count($errors) === 0) {
         try {
-            $sql = "INSERT INTO USERS (USERNAME, PASSWORD, FULLNAME, EMAIL, PHONE, ADDRESS, ROLE) VALUES ('$username', $fullname, '$password', $email, '$phone', $address, $role)";
+            $sql = "INSERT INTO USERS (USERNAME, PASSWORD, FULLNAME, EMAIL, PHONE, ADDRESS, ROLE) VALUES ('$username', '$password', '$fullname', '$email', '$phone', '$address', '$role')";
             $res = $conn->query($sql);
             // insert successfully
             if ($res) {
@@ -112,8 +112,8 @@ if (isset($_POST['register'])) {
                                 </div>
                                 <div class="form-group mb-2">
                                     <label for="role">Role: </label>
-                                    <input type="radio" name="role" value="1"> yes
-                                    <input type="radio" name="role" value="0"> no
+                                    <input type="radio" name="role" value="0"> yes
+                                    <input type="radio" name="role" value="1"> no
                                 </div>
                                 <div class="form-group d-flex justify-content-between align-items-center">
                                     <a href="login.php" class="text-uppercase fw-bold">Login</a>
